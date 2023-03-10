@@ -1,0 +1,55 @@
+.calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    max-width: 640px;
+    background-color: gainsboro;
+    padding-bottom: 30px;
+}
+.top {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.screen {
+    width: 400px;
+    height: 100px;
+    background-color: bisque;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.numberUI {
+    display: flex;
+    font-size: 30px;
+    justify-content: flex-end;
+    
+}
+.bottom {
+
+}
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.colum {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    margin: 3px;
+    font-size: 30px;
+    background-color: beige;
+    border-radius: 15%;    
+}
