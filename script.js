@@ -1,60 +1,91 @@
 const numbers = ['1','2','3','4','5','6','7','8','9','0','.']
-const operators = ['+','-','*','/'];
+const operators = ['+','-','*','/','=','Enter'];
 const numButtons = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const screen = document.querySelector('.numberUI')
 const button = document.querySelectorAll('.button')
 const clear = document.querySelector('.clear');
+const sum = document.querySelector('.sum')
+
+let num1 = null;
+let num2 = null;
+let num3 = null;
+let startNewNumber = true;;
+let operation = '';
+let huj = '';
+screen.innerHTML = '0'
 
 function operator(operation, num1, num2) {
 switch (operation)
 {
     case '+':
-        console.log('iet plus');
         add(num1,num2);
         break;
     case '-':
-        console.log('iet minus')
         subtract(num1,num2);
+        break;
     case '*':
-        console.log('iet reiz');
         multiply(num1,num2);
+        break;
     case '/':
-        console.log('iet dalit');
         divide(num1, num2);
+        break;
+    case '=':
+    case 'Enter':
+        operation = huj;
+        operator(huj,num1,num2);
+        console.log('op',operation)
+        return operation;
     default: console.log(operation)
 }
 }
-function add(worknum, num2) {
-    num1 = Number(worknum) + Number(num2);
+function add(worknum, worknum2) {
+    num1 = Number(worknum) + Number(worknum2);
     screen.innerHTML = num1;
     return num1;
 }
-function subtract(num1, num2) {
-    return num1 - num2;
+function subtract(worknum, num2) {
+    num1 = Number(worknum) - Number(num2);
+    screen.innerHTML = num1;
+    return num1;
 }
-function multiply(num1,num2) {
-    return num1 * num2;
+function multiply(worknum,worknum2) {
+    num1 = Number(worknum) * Number(worknum2);
+    screen.innerHTML = num1;
+    return num1, num2;
 }
-function divide(num1,num2) {
-    return num1 / num2;
+function divide(worknum,num2) {
+    num1 = Number(worknum) / Number(num2);
+    screen.innerHTML = num1;
+    return num1;
+}
+function clearAll() {
+    num1 = null;
+    num2 = null;
+    screen.innerHTML = '0';
+    startNewNumber = true;
+}
+function delScreen() {
+        screen.innerHTML = '';
 }
 
-let num1 = null;
-let num2 = null;
-let thing = false;
-let operation = '';
+
 
 function poga() {
     if (!num1) {
         num1 = screen.innerHTML;
-        thing = true;
-    } else {
+        startNewNumber = true;
+    } else if (!num2) {
         num2 = screen.innerHTML;
-        console.log('num2', num2)
-        console.log('num1', num1)
-        thing = true;
+        num3 = num2;
+        startNewNumber = true;
         operator(operation,num1,num2)
+    } 
+    else {
+        num2 = num3;
+        startNewNumber = true;
+        operator(operation,num1,num2);
+        console.log(operation)
     }
 };
 
@@ -63,20 +94,12 @@ function poga() {
 window.addEventListener('keydown',checkInput);
 button.forEach(button => button.addEventListener('click', checkInput));
 clear.addEventListener('click', clearAll)
-function clearAll() {
-    num1 = null;
-    num2 = null;
-    screen.innerHTML = '';
-    thing = false;
-}
-function delScreen() {
-        screen.innerHTML = '';
-}
+
 
 function checkInput(e) {
-    if (thing == true && screen.innerHTML.length > 0) {
+    if (startNewNumber == true && screen.innerHTML.length > 0) {
         delScreen();
-        thing = false;
+        startNewNumber = false;
     }
     if (this.innerHTML) {
         for (let i = 0; i < numbers.length; i++) {
@@ -85,7 +108,6 @@ function checkInput(e) {
                  break;
             }
          else if (operators[i] == this.innerHTML) {
-                operation = this.innerHTML;
                 operation = this.innerHTML;
                 poga();
                 break;
@@ -98,11 +120,15 @@ function checkInput(e) {
                  break;
             }
          else if (operators[i] == e.key) {
-                console.log(e.key) ;
+                operation = e.key;
+                poga();
                 break;
             }
+        }
     }
- }
+    if (operation !== '=' && operation !== 'Enter') {
+        huj = operation;
+    }
 };
 
 
