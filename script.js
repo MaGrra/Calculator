@@ -90,13 +90,21 @@ function poga() {
     if (!num1) {
         num1 = screen.innerHTML;
         startNewNumber = true;
-    } else if (!num2) {
+    } else if (!num2 && !huj) {
+        
         num2 = screen.innerHTML;
         num3 = num2
         startNewNumber = true;
         operator(operation,num1,num2)
-    } 
-    else {
+         
+    } else if (operation != huj) {
+            startNewNumber = true;
+            num2 = screen.innerHTML;
+            num3 = num2;
+            operator(huj,num1,num2)
+            return;
+            
+    } else {
         num2 = screen.innerHTML;
         console.log('suka')
         startNewNumber = true;
@@ -104,13 +112,15 @@ function poga() {
         num2 = num3;
         
     }
+    console.error(operation)
 };
 function sum() {
     console.log('sum op', operation)
     console.log('sum huj',huj)
     if (idkYet == false) {
         num2 = screen.innerHTML;
-    }
+    } 
+  
     operator(operation,num1,num2);
     idkYet = true;
 };
@@ -128,6 +138,7 @@ function checkInput(e) {
     console.log('num',idkYet);
 
     if (startNewNumber == true) {
+        num3 = num2;
         delScreen();
         startNewNumber = false;
     }
@@ -144,6 +155,7 @@ function checkInput(e) {
             } else if (equals[i] == this.innerHTML) {
                 operation = this.innerHTML
                 sum();
+                break;
             }
         
         }
@@ -153,10 +165,13 @@ function checkInput(e) {
                 if (screen.innerHTML.length > 9) return;
                  screen.innerHTML += numbers[i];
                  break;
-            }
-         else if (operators[i] == e.key) {
+            } else if (operators[i] == e.key) {
                 operation = e.key;
                 poga();
+                break;
+            } else if (equals[i] == e.key) {
+                operation = e.key
+                sum();
                 break;
             }
         }
@@ -164,6 +179,7 @@ function checkInput(e) {
     if (operation !== '=' && operation !== 'Enter') {
         huj = operation;
     }
+    console.warn(screen.innerHTML);
 };
 
 
