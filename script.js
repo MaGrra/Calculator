@@ -1,16 +1,18 @@
 const numbers = ['1','2','3','4','5','6','7','8','9','0','.']
-const operators = ['+','-','*','/','=','Enter'];
+const operators = ['+','-','*','/',];
+const equals =['=','Enter'];
 const numButtons = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const screen = document.querySelector('.numberUI')
 const button = document.querySelectorAll('.button')
+const clearAllMemory = document.querySelector('.clearAll');
 const clear = document.querySelector('.clear');
-const sum = document.querySelector('.sum')
 
 let num1 = null;
 let num2 = null;
 let num3 = null;
-let startNewNumber = true;;
+let idkYet = false;
+let startNewNumber = true;
 let operation = '';
 let huj = '';
 screen.innerHTML = '0'
@@ -34,8 +36,6 @@ switch (operation)
     case 'Enter':
         operation = huj;
         operator(huj,num1,num2);
-        console.log('op',operation)
-        return operation;
     default: console.log(operation)
 }
 }
@@ -62,60 +62,95 @@ function divide(worknum,num2) {
 function clearAll() {
     num1 = null;
     num2 = null;
+    num3 = null;
     screen.innerHTML = '0';
     startNewNumber = true;
+    idkYet = false;
+    huj = '';
+    operation = '';
 }
 function delScreen() {
         screen.innerHTML = '';
+        
 }
 
 
 
 function poga() {
+    console.log('pog op', operation)
+    console.log('pog huj',huj)
+    if (idkYet == true ) {
+        screen.innerHTML = num1;
+        idkYet = false;
+        startNewNumber = true;
+        num2 = null;
+        return;
+    } 
+   
     if (!num1) {
         num1 = screen.innerHTML;
         startNewNumber = true;
     } else if (!num2) {
         num2 = screen.innerHTML;
-        num3 = num2;
+        num3 = num2
         startNewNumber = true;
         operator(operation,num1,num2)
     } 
     else {
-        num2 = num3;
+        num2 = screen.innerHTML;
+        console.log('suka')
         startNewNumber = true;
         operator(operation,num1,num2);
-        console.log(operation)
+        num2 = num3;
+        
     }
+};
+function sum() {
+    console.log('sum op', operation)
+    console.log('sum huj',huj)
+    if (idkYet == false) {
+        num2 = screen.innerHTML;
+    }
+    operator(operation,num1,num2);
+    idkYet = true;
 };
 
 
 /*Gets input -keyboard - click*/
 window.addEventListener('keydown',checkInput);
 button.forEach(button => button.addEventListener('click', checkInput));
-clear.addEventListener('click', clearAll)
+clearAllMemory.addEventListener('click', clearAll)
+clear.addEventListener('click', delScreen);
 
 
 function checkInput(e) {
-    if (startNewNumber == true && screen.innerHTML.length > 0) {
+    console.log('clear',startNewNumber);
+    console.log('num',idkYet);
+
+    if (startNewNumber == true) {
         delScreen();
         startNewNumber = false;
     }
     if (this.innerHTML) {
         for (let i = 0; i < numbers.length; i++) {
             if (numbers[i] == this.innerHTML) {
+                if (screen.innerHTML.length > 9) return;
                  screen.innerHTML += numbers[i];
                  break;
-            }
-         else if (operators[i] == this.innerHTML) {
+            } else if (operators[i] == this.innerHTML) {
                 operation = this.innerHTML;
                 poga();
                 break;
+            } else if (equals[i] == this.innerHTML) {
+                operation = this.innerHTML
+                sum();
             }
+        
         }
     } else if (!this.innerText) {
         for (let i = 0; i < numbers.length; i++) {
             if (numbers[i] == e.key) {
+                if (screen.innerHTML.length > 9) return;
                  screen.innerHTML += numbers[i];
                  break;
             }
