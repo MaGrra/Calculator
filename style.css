@@ -1,12 +1,17 @@
+body {
+    background-color: rgb(221, 221, 221);
+}
 .calculator {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     margin: auto;
-    max-width: 640px;
-    background-color: gainsboro;
+    max-width: 90vw;
+    width: 320px;
+    background-color: rgb(39, 41, 50);
     padding-bottom: 30px;
+    border-radius: 3px;
 }
 .top {
     margin-top: 30px;
@@ -16,15 +21,16 @@
     align-content: center;
 }
 .screen {
-    width: 400px;
-    height: 100px;
-    background-color: bisque;
+    width: 280px;
+    height: 80px;
+    background-color: rgb(231, 236, 239);
     box-sizing: border-box;
     padding: 10px;
+    border-radius: 3px;
 }
 .numberUI {
     display: flex;
-    font-size: 30px;
+    font-size: 40px;
     justify-content: flex-end;
     
 }
@@ -34,12 +40,13 @@
 .btnContainer {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
 }
 .colum {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 3px;
 }
 .button {
     display: flex;
@@ -50,6 +57,16 @@
     width: 50px;
     margin: 3px;
     font-size: 30px;
-    background-color: beige;
-    border-radius: 15%;    
+    background-color: rgb(231, 236, 239);
+    border-radius: 15%;   
+    color: rgb(240, 93, 94); 
+    transition: 0.1s;
+}
+.button:hover {
+    background-color: rgb(121, 184, 185);
+}
+.btnClicked {
+    transform: scale(1.05);
+    border-color: yellowgreen;
+    box-shadow: 0 0 1px yellowgreen;
 }
