@@ -205,7 +205,7 @@ function checkInput(e) {
                 if (screen.innerHTML.includes('.') && e.key == '.') return;
                  screen.innerHTML += numbers[i];
                  const key = document.querySelector(`.m${e.key}m`)
-                 key.classList.add('btnClicked');
+                key.classList.add('btnClicked');
                  break;
             } else if (operators[i] == e.key) {
                 operation = e.key;
@@ -226,7 +226,8 @@ function checkInput(e) {
         clearAll()
         screen.innerHTML = "Don't do that!";
     }
- 
+    const key = document.querySelector(`.m${e.key}m`)
+        key.classList.add('btnClicked');
 };
 
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
