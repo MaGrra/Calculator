@@ -226,7 +226,8 @@ function checkInput(e) {
         clearAll()
         screen.innerHTML = "Don't do that!";
     }
-    const key = document.querySelector(`.m${e.key}m`)
+    const key = document.querySelector(
+        `[class *='m${e.key}m']`)
         key.classList.add('btnClicked');
 };
 
