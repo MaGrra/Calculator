@@ -66,7 +66,7 @@ body {
     background-color: rgb(121, 184, 185);
 }
 .btnClicked {
-    transform: scale(1.05);
+    transform: scale(0.95);
     border-color: yellowgreen;
     box-shadow: 0 0 1px yellowgreen;
 }

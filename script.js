@@ -50,6 +50,7 @@ switch (operation)
         operation = previousOperator;
         operator(previousOperator,num1,num2);
 }
+screenLimit();
 
 }
 function add(worknum, worknum2) {
@@ -66,6 +67,7 @@ function multiply(worknum,worknum2) {
     num1 = Number(worknum) * Number(worknum2);
     screen.innerHTML = Math.round(num1 * 100) / 100;
     num1 = Math.round(num1 * 100) / 100;
+    
 }
 function divide(worknum,num2) {
     num1 = Number(worknum) / Number(num2);
@@ -90,7 +92,7 @@ function changeSign() {
     if (screen.innerHTML > 0) {
         if (screen.innerHTML.includes('-')) return;
             screen.innerHTML =  '-' + screen.innerHTML;
-            num1 = '-' + Number(num1);
+            num1 = Number('-' + screen.innerHTML);
     } else if (screen.innerHTML < 0) {
         if (screen.innerHTML.charAt(0) === '-') {
             screen.innerHTML = screen.innerHTML.substring(1);
@@ -107,6 +109,12 @@ function percentageFunction() {
     num1 = Number(num1);
     }
 }
+function screenLimit() {
+    if (num1.toString().length > 12) {
+        screen.innerHTML = `a BIG number`
+        num1 = 0;
+    }
+}
 
 /* Evaluates the rules for operator before passing them along to the operator function */
 function DecideOperation() {
@@ -119,7 +127,7 @@ function DecideOperation() {
     } 
    
     if (!num1) {
-        num1 = screen.innerHTML;
+        num1 = Number(screen.innerHTML);
         startNewNumber = true;
     } else if (!num2 && !previousOperator) {
         
@@ -154,7 +162,6 @@ function sum() {
 };
 function removeTransition(e) {
     if (e.propertyName !== 'transform') return; 
-    console.log(e.propertyName);
     this.classList.remove('btnClicked')
 }
 
@@ -165,9 +172,6 @@ clearAllMemory.addEventListener('click', clearAll)
 clear.addEventListener('click', clearScreen);
 plusMinusBtn.addEventListener('click', changeSign);
 percentBtn.addEventListener('click', percentageFunction)
-
-
-
 
 function checkInput(e) {
     if (startNewNumber == true) {
@@ -192,11 +196,8 @@ function checkInput(e) {
                 sum();
                 break;
             }
-        
         }
     } else if (!this.innerText) {
-        console.log(e.key);
-        
         for (let i = 0; i < numbers.length; i++) {
             if (e.key == 'Escape' || e.key == 'Delete') clearAll();
             if (e.key == 'Backspace') clearScreen();
@@ -204,10 +205,14 @@ function checkInput(e) {
                 if (screen.innerHTML.length > 9) return;
                 if (screen.innerHTML.includes('.') && e.key == '.') return;
                  screen.innerHTML += numbers[i];
-                 const key = document.querySelector(`.m${e.key}m`)
+                 const key = document.querySelector(
+                    `[class *='m${e.key}m']`)
                 key.classList.add('btnClicked');
                  break;
             } else if (operators[i] == e.key) {
+                const key = document.querySelector(
+                    `[class *='m${e.key}m']`)
+                key.classList.add('btnClicked');
                 operation = e.key;
                 DecideOperation();
                 break;
@@ -215,7 +220,7 @@ function checkInput(e) {
                 operation = e.key
                 sum();
                 break;
-            }
+            } 
         }
     }
     if (operation !== '=' && operation !== 'Enter') {
@@ -226,9 +231,6 @@ function checkInput(e) {
         clearAll()
         screen.innerHTML = "Don't do that!";
     }
-    const key = document.querySelector(
-        `[class *='m${e.key}m']`)
-        key.classList.add('btnClicked');
 };
 
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
